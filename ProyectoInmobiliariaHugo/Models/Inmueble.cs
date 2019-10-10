@@ -15,5 +15,6 @@ namespace ProyectoInmobiliariaHugo.Models
         public decimal Precio { get; set; }
         public string Estado { get; set; }
         public int IdPropietario { get; set; }
+        public Propietario Propietario { get; set; }
     }
 }

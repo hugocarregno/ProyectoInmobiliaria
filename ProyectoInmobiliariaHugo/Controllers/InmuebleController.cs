@@ -20,12 +20,21 @@ namespace ProyectoInmobiliariaHugo.Controllers
         // GET: Inmueble/Index
         public ActionResult Index()
         {
+            
+            return RedirectToAction("Listado");
+            
+        }
+        //GET: Inmueble/Listado
+        [Authorize]
+        public ActionResult Listado()
+        {
             var inmuebles = repositorio.ObtenerTodos();
             if (TempData.ContainsKey("Id"))
                 ViewBag.Id = TempData["Id"];
             return View(inmuebles);
-            
+
         }
+
         // GET: Inmueble/Create
         [Authorize(Policy = "Administrador")]
         public ActionResult Create(int id)

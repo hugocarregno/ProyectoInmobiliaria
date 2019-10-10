@@ -72,7 +72,7 @@ namespace ProyectoInmobiliariaHugo.Controllers
                 {
                     propietario.Clave = Convert.ToBase64String(KeyDerivation.Pbkdf2(
                         password: propietario.Clave,
-                        salt: System.Text.Encoding.ASCII.GetBytes("SALADA"),
+                        salt: System.Text.Encoding.ASCII.GetBytes(config["salt"]),
                         prf: KeyDerivationPrf.HMACSHA1,
                         iterationCount: 1000,
                         numBytesRequested: 256 / 8));
@@ -143,10 +143,11 @@ namespace ProyectoInmobiliariaHugo.Controllers
                 {
                     propietario.Clave = Convert.ToBase64String(KeyDerivation.Pbkdf2(
                         password: propietario.Clave,
-                        salt: System.Text.Encoding.ASCII.GetBytes(config["SALADA"]),
+                        salt: System.Text.Encoding.ASCII.GetBytes(config["salt"]),
                         prf: KeyDerivationPrf.HMACSHA1,
                         iterationCount: 1000,
                         numBytesRequested: 256 / 8));
+                    //System.Text.Encoding.ASCII.GetBytes("SALADA")
                 }
                 else
                 {

@@ -107,8 +107,8 @@ namespace ProyectoInmobiliariaHugo.Models
             IList<Inmueble> res = new List<Inmueble>();
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
-                string sql = $"SELECT IdInmueble, Direccion, Uso, Tipo, CantidadHabitantes, Precio, Estado, IdPropietario" +
-                    $" FROM Inmuebles";
+                string sql = $"SELECT i.IdInmueble, Direccion, Uso, Tipo, CantidadHabitantes, Precio, Estado, i.IdPropietario, p.Nombre, p.Apellido" +
+                    $" FROM Inmuebles i JOIN Propietarios p ON(i.IdInmueble = p.IdPropietario)";
                 using (SqlCommand command = new SqlCommand(sql, connection))
                 {
                     command.CommandType = CommandType.Text;
@@ -125,7 +125,13 @@ namespace ProyectoInmobiliariaHugo.Models
                             CantidadHabitantes = reader.GetInt32(4),
                             Precio = reader.GetDecimal(5),
                             Estado = reader.GetString(6),
-                            IdPropietario = reader.GetInt32(7)
+                            Propietario = new Propietario
+                            {
+                                IdPropietario = reader.GetInt32(7),
+                                Nombre = reader.GetString(8),
+                                Apellido = reader.GetString(9)
+                            }
+                            
                         };
                         res.Add(i);
                     }
@@ -136,3 +142,4 @@ namespace ProyectoInmobiliariaHugo.Models
         }
     }
 }
+      

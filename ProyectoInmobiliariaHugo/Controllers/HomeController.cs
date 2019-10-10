@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Cryptography.KeyDerivation;
 using Microsoft.AspNetCore.Mvc;
 using ProyectoInmobiliariaHugo.Models;
+using Microsoft.Extensions.Configuration;
 
 namespace ProyectoInmobiliariaHugo.Controllers
 {
@@ -16,11 +17,13 @@ namespace ProyectoInmobiliariaHugo.Controllers
     {
         private readonly IRepositorioPropietario propietarios;
         private readonly DataContext contexto;
+        private readonly IConfiguration config;
 
-        public HomeController(IRepositorioPropietario propietarios, DataContext contexto)
+        public HomeController(IRepositorioPropietario propietarios, DataContext contexto, IConfiguration config)
         {
             this.propietarios = propietarios;
             this.contexto = contexto;
+            this.config = config;
         }
         public IActionResult Index()
         {
@@ -63,10 +66,11 @@ namespace ProyectoInmobiliariaHugo.Controllers
                     ViewBag.ClaveNula = "Ingrese Clave";
                     return View();
                 }
+                //user admin@gmail.com pass admin
                 //hashed para admin jPX1uaYX24ssdEttdOrpqpsaU7LpXs7rh3jmUcyCRA8=
                 string hashed = Convert.ToBase64String(KeyDerivation.Pbkdf2(
                     password: loginView.Clave,
-                    salt: System.Text.Encoding.ASCII.GetBytes("SALADA"),
+                    salt: System.Text.Encoding.ASCII.GetBytes(config["salt"]),
                     prf: KeyDerivationPrf.HMACSHA1,
                     iterationCount: 1000,
                     numBytesRequested: 256 / 8));
