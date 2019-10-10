@@ -55,9 +55,9 @@
                 @Html.DisplayFor(modelItem => item.Direccion)
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new {  id=item.IdPropietario  }) |
-                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+                @Html.ActionLink("Editar", "Editar", new {  id=item.IdPropietario  }) |
+                @Html.ActionLink("Details", "Details", new {  id=item.IdPropietario  }) |
+                @Html.ActionLink("Eliminar", "Eliminar", new {  id=item.IdPropietario  })
             </td>
         </tr>
 }

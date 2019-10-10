@@ -28,12 +28,10 @@ namespace ProyectoInmobiliariaHugo.Controllers
         // GET: Propietario/Index
         public ActionResult Index()
         {
-            //Data data = new Data();
-           // var propietarios = repositorio.ObtenerTodos();
-            //if (TempData.ContainsKey("Id"))
-           //     ViewBag.Id = TempData["Id"];
-
-            return View();
+            int id = Convert.ToInt32(User.Claims.FirstOrDefault(c => c.Type == "Id").Value);
+            Propietario propietario = repositorio.ObtenerPorId(id);
+            return View(propietario);
+            
         }
 
         [Authorize(Policy = "Administrador")]
@@ -41,16 +39,17 @@ namespace ProyectoInmobiliariaHugo.Controllers
         public ActionResult Listado()
         {
             IEnumerable<Propietario> propietario = repositorio.ObtenerTodos();
-            
-                //context.Propietario.ToList();
             return View(propietario);
         }
 
+        /*
         // GET: Propietario/Details/5
         public ActionResult Details(int id)
         {
-            return View();
+            Propietario propietario = repositorio.ObtenerPorId(id);
+            return View(propietario);
         }
+        */
 
         [Authorize(Policy = "Administrador")]
         // GET: Propietario/Create
@@ -93,7 +92,7 @@ namespace ProyectoInmobiliariaHugo.Controllers
         }
 
         // GET: Propietario/Edit/5
-        public ActionResult Edit(int id)
+        public ActionResult Editar(int id)
         {
             var p = repositorio.ObtenerPorId(id);
             if (TempData.ContainsKey("Mensaje"))
@@ -106,7 +105,7 @@ namespace ProyectoInmobiliariaHugo.Controllers
         // POST: Propietario/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, Propietario propietario)
+        public ActionResult Editar(int id, Propietario propietario)
         {
             try
             {
@@ -165,60 +164,7 @@ namespace ProyectoInmobiliariaHugo.Controllers
                 return View(propietario);
             }
         }
-        /*
-        // POST: Propietarios/Edit/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit(PropietarioView propietario)
-        {
-            try
-            {
-
-                if (propietario.Dni != 0 && propietario.Nombre != null && propietario.Apellido != null && propietario.Domicilio != null && propietario.Telefono != 0 && propietario.Email != null && propietario.Clave != null)
-                {
-                    Propietario propietarioedit = contexto.Propietario.First(x => x.Id == propietario.Id);
-                    @ViewBag.nomrePropietario = propietarioedit.Nombre + " " + propietarioedit.Apellido;
-                    propietario.Clave = Convert.ToBase64String(KeyDerivation.Pbkdf2(
-                      password: propietario.Clave,
-                      salt: System.Text.Encoding.ASCII.GetBytes("SALADA"),
-                      prf: KeyDerivationPrf.HMACSHA1,
-                      iterationCount: 1000,
-                      numBytesRequested: 256 / 8));
-                    p = new Propietario
-                    {
-                        Id = propietario.Id,
-                        Dni = propietario.Dni,
-                        Nombre = propietario.Nombre,
-                        Apellido = propietario.Apellido,
-                        Email = propietario.Email,
-                        Telefono = propietario.Telefono,
-                        Clave = propietario.Clave,
-                        Domicilio = propietario.Domicilio
-                    };
-
-                    contexto.Propietario.Update(p);
-                    contexto.SaveChanges();
-                    return RedirectToAction("ListaPropietarios");
-                }
-                else
-                {
-                    Propietario propietarioedit = contexto.Propietario.First(x => x.Id == propietario.Id);
-                    @ViewBag.nomrePropietario = propietarioedit.Nombre + " " + propietarioedit.Apellido;
-                    ViewBag.Error = "ingrese Todos los datos";
-                    return View();
-                }
-
-
-            }
-            catch (Exception ex)
-            {
-                Propietario propietarioedit = contexto.Propietario.First(x => x.Id == propietario.Id);
-                @ViewBag.nomrePropietario = propietarioedit.Nombre + " " + propietarioedit.Apellido;
-                ViewBag.exception = ex;
-                return View();
-            }
-        }
-        */
+        
         // GET: Propietario/Delete/5
         public ActionResult Eliminar(int id)
         {
@@ -238,8 +184,8 @@ namespace ProyectoInmobiliariaHugo.Controllers
             try
             {
                 repositorio.Baja(id);
-                TempData["Mensaje"] = "Eliminación realizada correctamente";
-                return RedirectToAction(nameof(Index));
+                TempData["Mensaje"] = "Propietario eliminado correctamente";
+                return RedirectToAction("Listado");
             }
             catch (Exception ex)
             {
