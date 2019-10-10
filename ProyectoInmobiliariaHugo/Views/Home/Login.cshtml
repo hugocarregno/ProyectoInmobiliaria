@@ -1,0 +1,42 @@
+﻿@model ProyectoInmobiliariaHugo.Models.LoginView
+
+@{
+    ViewData["Title"] = "Login";
+}
+
+<h1 class="text-center">@ViewData["Title"]</h1>
+<hr />
+<div class="row">
+    <div class="col-md-4 mx-auto">
+        <form asp-action="Login">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Email" class="control-label"></label>
+                <input asp-for="Email" class="form-control" />
+                <span asp-validation-for="Email" class="text-danger">@ViewBag.EmailNulo</span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Clave" class="control-label"></label>
+                <input asp-for="Clave" class="form-control" />
+                <span asp-validation-for="Clave" class="text-danger">@ViewBag.ClaveNula</span>
+            </div>
+            <div class="form-group">
+                <select name="Perfil" class="container-fluid">
+                    <option value="Propietario" selected>Propietario</option>
+                    <option value="Administrador">Administrador</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Login" class="btn btn-primary container-fluid" />
+            </div>
+            <span>@ViewBag.Mensaje</span>
+        </form>
+        <div class="text-center">
+            <a asp-action="Index">Home</a>
+        </div>
+    </div>
+   </div>
+
+    
+
+

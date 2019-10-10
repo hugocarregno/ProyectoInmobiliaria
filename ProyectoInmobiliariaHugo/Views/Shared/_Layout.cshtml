@@ -1,0 +1,45 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    <link href="~/lib/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+</head>
+<body>
+
+    <div>
+        @if (User.IsInRole("Administrador"))
+        {
+            <div>
+                <nav>
+                    <div>
+                        <a asp-action="Listado" asp-controller="Propietario">Propietarios</a>
+                    </div>
+                    <div>
+                        <a asp-action="Listado" asp-controller="Inmueble">Inmuebles</a>
+                    </div>
+                    <div>
+                        <a asp-action="Listado" asp-controller="Inquilino">Inquilinos</a>
+                    </div>
+                    <div>
+                        <a asp-action="Listado" asp-controller="Contrato">Contratos</a>
+                    </div>
+                    <div>
+                        <a asp-action="Listado" asp-controller="Pago">Pagos</a>
+                    </div>
+                    <div>
+                        <a asp-action="Logout" asp-controller="Home">Cerrar Sesion</a>
+                    </div>
+                </nav>
+            </div>
+        }
+        @RenderBody()
+    </div>
+    <script src="~/lib/jquery/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/js/bootstrap.min.js"></script>
+    <footer class="text-center">
+        Inmobiliaria Hugo 2019
+    </footer>
+</body>
+</html>

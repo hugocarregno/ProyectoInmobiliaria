@@ -1,0 +1,72 @@
+﻿@model ProyectoInmobiliariaHugo.Models.Inmueble
+
+@{
+    ViewData["Title"] = "Create";
+}
+@{
+    var ListaPropietario = ViewBag.propietarios as IEnumerable<ProyectoInmobiliariaHugo.Models.Propietario>;
+}
+<h1>Create</h1>
+
+<h4>Inmueble</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Direccion" class="control-label"></label>
+                <input asp-for="Direccion" class="form-control" />
+                <span asp-validation-for="Direccion" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Uso" class="control-label"></label>
+                <select asp-for="Uso">
+                    <option value="residencial" selected>Residencial</option>
+                    <option value="comercial">Comercial</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label asp-for="Tipo" class="control-label"></label>
+                <select asp-for="Tipo">
+                    <option value="casa" selected>Casa</option>
+                    <option value="departamento">Departamento</option>
+                    <option value="local">Local</option>
+                    <option value="deposito">Deposito</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label asp-for="CantidadHabitantes" class="control-label"></label>
+                <input asp-for="CantidadHabitantes" class="form-control" />
+                <span asp-validation-for="CantidadHabitantes" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Precio" class="control-label"></label>
+                <input asp-for="Precio" class="form-control" />
+                <span asp-validation-for="Precio" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Estado" class="control-label"></label>
+                <select asp-for="Estado">
+                    <option value="disponible" selected>Disponible</option>
+                    <option value="ocupada">Ocupada</option>
+                </select>
+            </div>
+            <label asp-for="IdPropietario" class="control-label"></label>  &nbsp <a asp-controller="Propietario" asp-action="Create">Nuevo Propietario</a>
+            <select asp-for="IdPropietario" class="form-control">
+                @foreach (Propietario item in ListaPropietario)
+                {
+                    <option value=@item.IdPropietario>@item.Nombre @item.Apellido @item.Dni</option>
+                }
+            </select>
+            <span asp-validation-for="IdPropietario" class="text-danger"></span>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
