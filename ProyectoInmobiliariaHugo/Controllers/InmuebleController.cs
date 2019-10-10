@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using ProyectoInmobiliariaHugo.Models;
 
@@ -16,6 +17,7 @@ namespace ProyectoInmobiliariaHugo.Controllers
             this.repositorio = repositorio;
             this.propietarios = propietarios;
         }
+        // GET: Inmueble/Index
         public ActionResult Index()
         {
             var inmuebles = repositorio.ObtenerTodos();
@@ -24,16 +26,25 @@ namespace ProyectoInmobiliariaHugo.Controllers
             return View(inmuebles);
             
         }
-        // GET: Inmuebles/Create
-        //[Authorize(Policy = "Administrador")]
-        public ActionResult Create()
+        // GET: Inmueble/Create
+        [Authorize(Policy = "Administrador")]
+        public ActionResult Create(int id)
         {
-            ViewBag.propietarios = propietarios.ObtenerTodos();
+            
+            if(id == 0)
+            {
+                ViewBag.IdPropietario = 0;
+                ViewBag.Propietarios = propietarios.ObtenerTodos();
+                return View();
+            }
+            Propietario propietario = propietarios.ObtenerPorId(id);
+            ViewBag.IdPropietario = propietario.IdPropietario;
+            ViewBag.PropietarioDescripcion = propietario.Dni + " " + propietario.Apellido + " " + propietario.Nombre;
             return View();
         }
 
 
-        // POST: Inmuebles/Create
+        // POST: Inmueble/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create(Inmueble inmueble)

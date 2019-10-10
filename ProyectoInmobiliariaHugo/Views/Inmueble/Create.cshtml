@@ -52,13 +52,23 @@
                     <option value="ocupada">Ocupada</option>
                 </select>
             </div>
-            <label asp-for="IdPropietario" class="control-label"></label>  &nbsp <a asp-controller="Propietario" asp-action="Create">Nuevo Propietario</a>
-            <select asp-for="IdPropietario" class="form-control">
-                @foreach (Propietario item in ListaPropietario)
-                {
-                    <option value=@item.IdPropietario>@item.Nombre @item.Apellido @item.Dni</option>
-                }
-            </select>
+            <label class="control-label">Propietario</label>  &nbsp <a asp-controller="Propietario" asp-action="Create">Nuevo Propietario</a>
+            @if (ViewBag.IdPropietario == 0)
+            {
+                <select asp-for="IdPropietario" class="form-control">
+                    @foreach (Propietario item in ListaPropietario)
+                    {
+                        <option value=@item.IdPropietario>@item.Dni @item.Apellido @item.Nombre</option>
+                    }
+                </select>
+            }
+            else
+            {
+                <br />
+                <label>@ViewBag.PropietarioDescripcion</label>
+                <input type="hidden" value="@ViewBag.IdPropietario" />
+            }
+
             <span asp-validation-for="IdPropietario" class="text-danger"></span>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />

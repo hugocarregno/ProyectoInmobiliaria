@@ -6,9 +6,6 @@
 
 <h1>Listado</h1>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
 <table class="table">
     <thead>
         <tr>
@@ -30,7 +27,7 @@
             <th>
                 @Html.DisplayNameFor(model => model.Direccion)
             </th>
-            <th></th>
+            <th><a asp-action="Create">Nuevo Propietario</a></th>
         </tr>
     </thead>
     <tbody>
@@ -55,9 +52,9 @@
                 @Html.DisplayFor(modelItem => item.Direccion)
             </td>
             <td>
-                @Html.ActionLink("Editar", "Editar", new {  id=item.IdPropietario  }) |
-                @Html.ActionLink("Details", "Details", new {  id=item.IdPropietario  }) |
-                @Html.ActionLink("Eliminar", "Eliminar", new {  id=item.IdPropietario  })
+                @Html.ActionLink("Editar", "Editar", new { id = item.IdPropietario }) |
+                <a asp-action="create" asp-controller="Inmueble" asp-route-id="@item.IdPropietario">Nuevo Inmueble</a>|
+                @Html.ActionLink("Eliminar", "Eliminar", new { id = item.IdPropietario })
             </td>
         </tr>
 }
