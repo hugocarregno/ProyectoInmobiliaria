@@ -1,0 +1,117 @@
+﻿@model ProyectoInmobiliariaHugo.Models.Inmueble
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>Inmueble</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <input asp-for="IdInmueble" class="form-control" type="hidden"/>
+                <span asp-validation-for="IdInmueble" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Direccion" class="control-label"></label>
+                <input asp-for="Direccion" class="form-control" />
+                <span asp-validation-for="Direccion" class="text-danger">@ViewBag.DireccionNulo</span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Uso" class="control-label"></label>
+                <select asp-for="Uso">
+
+                    @if (Model.Uso == "residencial")
+                    {
+                        <option value="residencial" selected>Residencial</option>
+                        <option value="comercial">Comercial</option>
+                    }
+                    else
+                    {
+                        <option value="comercial" selected>Comercial</option>
+                        <option value="residencial">Residencial</option>
+                    }
+                </select>
+            </div>
+            <div class="form-group">
+                <label asp-for="Tipo" class="control-label"></label>
+                <select asp-for="Tipo">
+                    @if (Model.Tipo == "casa")
+                    {
+                        <option value="casa" selected>Casa</option>
+                    }
+                    else
+                    {
+                        <option value="casa">Casa</option>
+                    }
+                    @if (Model.Tipo == "local")
+                    {
+                        <option value="local" selected>Local</option>
+                    }
+                    else
+                    {
+                        <option value="local">Local</option>
+                    }
+                    @if (Model.Tipo == "deposito")
+                    {
+                        <option value="deposito" selected>Depósito</option>
+                    }
+                    else
+                    {
+                        <option value="deposito">Depósito</option>
+                    }
+                    @if (Model.Tipo == "departamento")
+                    {
+                        <option value="departamento" selected>Departamento</option>
+                    }
+                    else
+                    {
+                        <option value="departamento">Departamento</option>
+                    }
+                </select>
+            </div>
+            <div class="form-group">
+                <label asp-for="CantidadHabitantes" class="control-label"></label>
+                <input asp-for="CantidadHabitantes" class="form-control" />
+                <span asp-validation-for="CantidadHabitantes" class="text-danger">@ViewBag.CantidadHabitantesNulo</span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Precio" class="control-label"></label>
+                <input asp-for="Precio" class="form-control" />
+                <span asp-validation-for="Precio" class="text-danger">@ViewBag.PrecioNulo</span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Estado" class="control-label"></label>
+                <select asp-for="Estado">
+                    @if (Model.Tipo == "disponible")
+                    {
+                        <option value="disponible" selected>Disponible</option>
+                        <option value="ocupada">Ocupada</option>
+                    }
+                    else
+                    {
+                        <option value="ocupada" selected>Ocupada</option>
+                        <option value="disponible">Disponible</option>
+                    }
+                </select>
+            </div>
+            <div class="form-group">
+                <label>@ViewBag.PropietarioDescripcion</label>
+                <input asp-for="IdPropietario" class="form-control" type="hidden" />
+                <span asp-validation-for="IdPropietario" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+

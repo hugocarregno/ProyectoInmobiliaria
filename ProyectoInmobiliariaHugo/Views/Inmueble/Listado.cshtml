@@ -31,7 +31,7 @@
                 @Html.DisplayNameFor(model => model.Estado)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.IdPropietario)
+                Propietario
             </th>
             <th></th>
         </tr>
@@ -58,12 +58,12 @@
                 @Html.DisplayFor(modelItem => item.Estado)
             </td>
             <td>
-                @(item.Propietario.Apellido + " " + item.Propietario.Nombre)
+                @item.Propietario.Dni @item.Propietario.Apellido @item.Propietario.Nombre
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Crear Contrato", "Create", new { id=item.IdInmueble }) |
-                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+                @Html.ActionLink("Edit", "Edit", new {  id=item.IdInmueble  }) |
+                <a asp-action="create" asp-controller="Contrato" asp-route-id="@item.IdInmueble">Crear Contrato</a> |
+                @Html.ActionLink("Delete", "Delete", new {  id=item.IdInmueble  })
             </td>
         </tr>
 }

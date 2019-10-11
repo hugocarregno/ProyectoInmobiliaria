@@ -16,5 +16,7 @@ namespace ProyectoInmobiliariaHugo.Models
         public DbSet<Administrador> Administradores { get; set; }
         public DbSet<Propietario> Propietarios { get; set; }
         public DbSet<Inquilino> Inquilinos { get; set; }
+        public DbSet<Inmueble> Inmuebles { get; set; }
+        public DbSet<Contrato> Contratos { get; set; }
     }
 }

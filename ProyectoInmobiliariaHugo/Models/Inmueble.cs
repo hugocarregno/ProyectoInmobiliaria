@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -7,6 +8,7 @@ namespace ProyectoInmobiliariaHugo.Models
 {
     public class Inmueble
     {
+        [Key]
         public int IdInmueble { get; set; }
         public string Direccion { get; set; }
         public string Uso { get; set; }
@@ -15,6 +17,7 @@ namespace ProyectoInmobiliariaHugo.Models
         public decimal Precio { get; set; }
         public string Estado { get; set; }
         public int IdPropietario { get; set; }
-        public Propietario Propietario { get; set; }
+        public virtual Propietario Propietario { get; set; }
+
     }
 }

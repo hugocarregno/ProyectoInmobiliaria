@@ -20,12 +20,6 @@ namespace ProyectoInmobiliariaHugo.Models
         public string Email { get; set; }
         public string Direccion { get; set; }
         public string LugarTrabajo { get; set; }
-        public string DniGarante { get; set; }
-        public string NombreGarante { get; set; }
-        public string ApellidoGarante { get; set; }
-        public string TelefonoGarante { get; set; }
-        public string EmailGarante { get; set; }
-        public string DireccionGarante { get; set; }
-        public string LugarTrabajoGarante { get; set; }
+        
     }
 }

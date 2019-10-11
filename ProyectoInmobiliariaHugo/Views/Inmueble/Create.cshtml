@@ -17,7 +17,7 @@
             <div class="form-group">
                 <label asp-for="Direccion" class="control-label"></label>
                 <input asp-for="Direccion" class="form-control" />
-                <span asp-validation-for="Direccion" class="text-danger"></span>
+                <span asp-validation-for="Direccion" class="text-danger">@ViewBag.Direccion</span>
             </div>
             <div class="form-group">
                 <label asp-for="Uso" class="control-label"></label>
@@ -32,18 +32,18 @@
                     <option value="casa" selected>Casa</option>
                     <option value="departamento">Departamento</option>
                     <option value="local">Local</option>
-                    <option value="deposito">Deposito</option>
+                    <option value="deposito">Depósito</option>
                 </select>
             </div>
             <div class="form-group">
                 <label asp-for="CantidadHabitantes" class="control-label"></label>
                 <input asp-for="CantidadHabitantes" class="form-control" />
-                <span asp-validation-for="CantidadHabitantes" class="text-danger"></span>
+                <span asp-validation-for="CantidadHabitantes" class="text-danger">@ViewBag.CantidadHabitantes</span>
             </div>
             <div class="form-group">
                 <label asp-for="Precio" class="control-label"></label>
                 <input asp-for="Precio" class="form-control" />
-                <span asp-validation-for="Precio" class="text-danger"></span>
+                <span asp-validation-for="Precio" class="text-danger">@ViewBag.Precio</span>
             </div>
             <div class="form-group">
                 <label asp-for="Estado" class="control-label"></label>
@@ -66,9 +66,8 @@
             {
                 <br />
                 <label>@ViewBag.PropietarioDescripcion</label>
-                <input type="hidden" value="@ViewBag.IdPropietario" />
+                <input type="hidden" value="@ViewBag.IdPropietario" asp-for="IdPropietario" class="form-control"/>
             }
-
             <span asp-validation-for="IdPropietario" class="text-danger"></span>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
