@@ -10,7 +10,13 @@ namespace ProyectoInmobiliariaHugo.Models
     {
         [Key]
         public int IdContrato { get; set; }
+        [Display(Name = "Fecha de inicio")]
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime FechaInicio { get; set; }
+        [Display(Name = "Fecha de Cierre")]
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime FechaCierre { get; set; }
         public decimal Monto { get; set; }
         public int IdInmueble { get; set; }

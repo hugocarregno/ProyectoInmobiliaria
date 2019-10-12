@@ -32,8 +32,8 @@ namespace ProyectoInmobiliariaHugo.Controllers
         {
             Inmueble inmueble = context.Inmuebles.Include(x => x.Propietario).First(i => i.IdInmueble == id);
 
-            ViewBag.InmuebleId = inmueble.IdInmueble;
-            ViewBag.NombreInmueble = inmueble.Direccion;
+            ViewBag.IdInmueble = inmueble.IdInmueble;
+            ViewBag.Inmueble = inmueble.Direccion;
             //ViewBag.NombrePropietario = inmueble.Propietario.Nombre + " " + inmueble.Propietario.Apellido;
             return View();
         }
@@ -49,41 +49,41 @@ namespace ProyectoInmobiliariaHugo.Controllers
                 Inmueble inmueble = context.Inmuebles.First(i => i.IdInmueble == contrato.IdInmueble);
 
                 ViewBag.IdInmueble = inmueble.IdInmueble;
-                //ViewBag.Inmueble = inmueble.Direccion;
+                ViewBag.Inmueble = inmueble.Direccion;
 
                 if (inmueble.Estado == "ocupado")
                 {
-                    ViewBag.Estado = "Inmueble ocupado";
+                    ViewBag.Error = "Inmueble ocupado";
                     return View();
                 }
 
                 if (contrato.IdInquilino == 0)
                 {
-                    ViewBag.IdInquilinoNulo = "No se encuentra inquilino";
+                    ViewBag.Error = "No se encuentra inquilino";
                     return View();
                 }
 
                 if(contrato.FechaInicio == null)
                 {
-                    ViewBag.FechaInicioNulo = "Fecha inicio incompleta";
+                    ViewBag.Error = "Fecha inicio incompleta";
                     return View();
                 }
 
                 if (contrato.FechaCierre == null)
                 {
-                    ViewBag.FechaCierreNula = "Fecha Cierre incompleta";
+                    ViewBag.Error = "Fecha Cierre incompleta";
                     return View();
                 }
 
                 if (contrato.Monto == 0)
                 {
-                    ViewBag.MontoNulo = "Monto incompleto";
+                    ViewBag.Error = "Monto incompleto";
                     return View();
                 }
                 Inquilino inquilino = context.Inquilinos.FirstOrDefault(x => x.Dni == contrato.IdInquilino);
                 if (inquilino == null)
                 {
-                    ViewBag.InquilinoNulo = "Inquilino no registrado";
+                    ViewBag.Error = "Inquilino no registrado";
                     return View();
                 }
                 inmueble.Estado = "ocupado";

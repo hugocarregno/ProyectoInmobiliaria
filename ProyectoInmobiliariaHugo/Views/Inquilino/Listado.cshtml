@@ -1,10 +1,10 @@
 ﻿@model IEnumerable<ProyectoInmobiliariaHugo.Models.Inquilino>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Listado";
 }
 
-<h1>Index</h1>
+<h1>Listado</h1>
 
 <p>
     <a asp-action="Create">Create New</a>
@@ -12,6 +12,9 @@
 <table class="table">
     <thead>
         <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.IdInquilino)
+            </th>
             <th>
                 @Html.DisplayNameFor(model => model.Dni)
             </th>
@@ -33,13 +36,15 @@
             <th>
                 @Html.DisplayNameFor(model => model.LugarTrabajo)
             </th>
-            
             <th></th>
         </tr>
     </thead>
     <tbody>
 @foreach (var item in Model) {
         <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.IdInquilino)
+            </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Dni)
             </td>
@@ -62,9 +67,8 @@
                 @Html.DisplayFor(modelItem => item.LugarTrabajo)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.IdInquilino">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.IdInquilino">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.IdInquilino">Delete</a>
+                @Html.ActionLink("Editar", "Edit", new {  id=item.IdInquilino  }) |
+                @Html.ActionLink("Eliminar", "Delete", new { id=item.IdInquilino })
             </td>
         </tr>
 }

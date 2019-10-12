@@ -78,7 +78,7 @@ namespace ProyectoInmobiliariaHugo.Controllers
                         numBytesRequested: 256 / 8));
                     repositorio.Alta(propietario);
                     TempData["Id"] = propietario.IdPropietario;
-                    return RedirectToAction(nameof(Index));
+                    return RedirectToAction("Listado");
                 }
                 else
                     return View();
@@ -109,7 +109,7 @@ namespace ProyectoInmobiliariaHugo.Controllers
         {
             try
             {
-                if(propietario.Dni == 0)
+                if(propietario.Dni !=8)
                 {
                     ViewBag.DniNull = "Ingrese Dni";
                     return View();

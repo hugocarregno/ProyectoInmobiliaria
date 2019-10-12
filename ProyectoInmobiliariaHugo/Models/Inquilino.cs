@@ -10,11 +10,11 @@ namespace ProyectoInmobiliariaHugo.Models
     {
         [Key]
         public int IdInquilino { get; set; }
-        //[Required]
+        [Required]
         public int Dni { get; set; }
-        //[Required]
+        [Required]
         public string Nombre { get; set; }
-        //[Required]
+        [Required]
         public string Apellido { get; set; }
         public string Telefono { get; set; }
         public string Email { get; set; }
