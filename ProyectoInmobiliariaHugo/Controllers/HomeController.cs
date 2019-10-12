@@ -37,6 +37,11 @@ namespace ProyectoInmobiliariaHugo.Controllers
             return View(claims);
         }
 
+        public ActionResult Restringido()
+        {
+            return View();
+        }
+
         // GET: Home/Login
         public ActionResult Login()
         {

@@ -63,10 +63,19 @@
 
         @RenderBody();
     </div>
-                <script src="~/lib/jquery/jquery.min.js"></script>
-                <script src="~/lib/bootstrap/js/bootstrap.min.js"></script>
-                <footer class="text-center">
-                    Inmobiliaria Hugo 2019
-                </footer>
+    <script src="~/lib/jquery/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/js/bootstrap.min.js"></script>
+    <script>
+        function validar() {
+            if (document.getElementById("Dni").value.length != 8) {
+                alert("Dni debe contener 8 caracteres");
+                return false;
+            }
+            return true;
+        }
+    </script>
+    <footer class="text-center">
+        Inmobiliaria Hugo 2019
+    </footer>
 </body>
 </html>

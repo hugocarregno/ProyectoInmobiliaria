@@ -4,17 +4,11 @@
     ViewData["Title"] = "Listado";
 }
 
-<h1>Listado</h1>
+<h1>Pagos</h1>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
 <table class="table">
     <thead>
         <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.IdPago)
-            </th>
             <th>
                 @Html.DisplayNameFor(model => model.Cuota)
             </th>
@@ -25,7 +19,16 @@
                 @Html.DisplayNameFor(model => model.Importe)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.IdContrato)
+                @Html.DisplayNameFor(model => model.Estado)
+            </th>
+            <th>
+                Inquilino
+            </th>
+            <th>
+                Dirección
+            </th>
+            <th>
+                Tipo
             </th>
             <th></th>
         </tr>
@@ -33,9 +36,6 @@
     <tbody>
 @foreach (var item in Model) {
         <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.IdPago)
-            </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Cuota)
             </td>
@@ -46,12 +46,19 @@
                 @Html.DisplayFor(modelItem => item.Importe)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.IdContrato)
+                @Html.DisplayFor(modelItem => item.Estado)
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+                @(item.Contrato.Inquilino.Dni+" "+item.Contrato.Inquilino.Apellido + " " + item.Contrato.Inquilino.Nombre)
+            </td>
+            <td>
+                @(item.Contrato.Inmueble.Direccion)
+            </td>
+            <td>
+                @(item.Contrato.Inmueble.Tipo)
+            </td>
+            <td>
+                @Html.ActionLink("Editar", "Edit", new {  id=item.IdPago })
             </td>
         </tr>
 }

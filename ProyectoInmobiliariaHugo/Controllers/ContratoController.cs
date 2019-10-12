@@ -30,11 +30,11 @@ namespace ProyectoInmobiliariaHugo.Controllers
         // GET: Contratos/Create
         public ActionResult Create(int id)
         {
+            
             Inmueble inmueble = context.Inmuebles.Include(x => x.Propietario).First(i => i.IdInmueble == id);
 
             ViewBag.IdInmueble = inmueble.IdInmueble;
             ViewBag.Inmueble = inmueble.Direccion;
-            //ViewBag.NombrePropietario = inmueble.Propietario.Nombre + " " + inmueble.Propietario.Apellido;
             return View();
         }
 
@@ -101,6 +101,60 @@ namespace ProyectoInmobiliariaHugo.Controllers
                 };
 
                 context.Contratos.Add(contratoAlta);
+                context.SaveChanges();
+
+                return RedirectToAction("Listado");
+            }
+            catch (Exception ex)
+            {
+                ViewBag.error = ex;
+                return View();
+            }
+        }
+
+        [Authorize(Policy = "Administrador")]
+        // GET: Contrato/Edit/5
+        public ActionResult Edit(int id)
+        {
+            Contrato contrato = context.Contratos.First(x => x.IdContrato == id);
+            Inmueble inmueble = context.Inmuebles.Include(x => x.Propietario).First(p => p.IdInmueble == contrato.IdInmueble);
+            ViewBag.Inmueble = inmueble.Direccion;
+            ViewBag.PropietarioDescripcion = inmueble.Propietario.Apellido+" "+inmueble.Propietario.Nombre;
+            ViewBag.IdInmueble = inmueble.IdInmueble;
+
+            ViewBag.FechaInicio = contrato.FechaInicio.ToString("yyyy-MM-dd");
+            ViewBag.FechaCierre = contrato.FechaCierre.ToString("yyyy-MM-dd");
+            Inquilino inquilino = context.Inquilinos.First(x => x.IdInquilino == contrato.IdInquilino);
+            ViewBag.InquilinoDescripcion = inquilino.Apellido+" "+inquilino.Nombre;
+            ViewBag.IdInquilino = inquilino.IdInquilino;
+            return View(contrato);
+        }
+
+        [Authorize(Policy = "Administrador")]
+        // POST: Contrato/Edit/5
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit(Contrato contrato)
+        {
+            try
+            {
+                Inmueble inmueble = context.Inmuebles.Include(x => x.Propietario).First(p => p.IdInmueble == contrato.IdInmueble);
+                ViewBag.Inmueble = inmueble.Direccion;
+                ViewBag.PropietarioDescripcion = inmueble.Propietario.Apellido + " " + inmueble.Propietario.Nombre;
+                ViewBag.IdInmueble = inmueble.IdInmueble;
+
+                ViewBag.FechaInicio = contrato.FechaInicio.ToString("yyyy-MM-dd");
+                ViewBag.FechaCierre = contrato.FechaCierre.ToString("yyyy-MM-dd");
+                Inquilino inquilino = context.Inquilinos.First(x => x.IdInquilino == contrato.IdInquilino);
+                ViewBag.InquilinoDescripcion = inquilino.Apellido + " " + inquilino.Nombre;
+                ViewBag.IdInquilino = inquilino.IdInquilino;
+                if (contrato.FechaInicio == null || contrato.FechaCierre == null || contrato.Monto == 0)
+                {
+                    ViewBag.error = "Ingrese todos los datos";
+                    return View();
+                }
+
+                context.Contratos.Update(contrato);
                 context.SaveChanges();
 
                 return RedirectToAction("Listado");

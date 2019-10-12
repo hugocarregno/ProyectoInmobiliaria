@@ -17,7 +17,7 @@
             <div class="form-group">
                 <label asp-for="Direccion" class="control-label"></label>
                 <input asp-for="Direccion" class="form-control" />
-                <span asp-validation-for="Direccion" class="text-danger">@ViewBag.Direccion</span>
+                <span asp-validation-for="Direccion" class="text-danger">@ViewBag.DireccionNulo</span>
             </div>
             <div class="form-group">
                 <label asp-for="Uso" class="control-label"></label>
@@ -38,12 +38,12 @@
             <div class="form-group">
                 <label asp-for="CantidadHabitantes" class="control-label"></label>
                 <input asp-for="CantidadHabitantes" class="form-control" />
-                <span asp-validation-for="CantidadHabitantes" class="text-danger">@ViewBag.CantidadHabitantes</span>
+                <span asp-validation-for="CantidadHabitantes" class="text-danger">@ViewBag.CantidadHabitantesNulo</span>
             </div>
             <div class="form-group">
                 <label asp-for="Precio" class="control-label"></label>
                 <input asp-for="Precio" class="form-control" />
-                <span asp-validation-for="Precio" class="text-danger">@ViewBag.Precio</span>
+                <span asp-validation-for="Precio" class="text-danger">@ViewBag.PrecioNulo</span>
             </div>
             <div class="form-group">
                 <label asp-for="Estado" class="control-label"></label>
@@ -76,6 +76,6 @@
     </div>
 </div>
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Listado">Volver al listado</a>
 </div>
 

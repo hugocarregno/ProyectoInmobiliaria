@@ -4,11 +4,8 @@
     ViewData["Title"] = "Listado";
 }
 
-<h1>Listado</h1>
+    <h1>Contratos</h1>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
 <table class="table">
     <thead>
         <tr>
@@ -49,10 +46,10 @@
                 @(item.Inmueble.Direccion)
             </td>
             <td>
-                @(item.Inmueble.Propietario.Nombre + " " + item.Inmueble.Propietario.Apellido)
+                @(item.Inmueble.Propietario.Dni + " " + item.Inmueble.Propietario.Apellido+" "+item.Inmueble.Propietario.Nombre)
             </td>
             <td>
-                @(item.Inquilino.Nombre + " " + item.Inquilino.Apellido)
+                @(item.Inquilino.Dni + " " + item.Inquilino.Apellido+" "+item.Inquilino.Nombre)
             </td>
             <td>
                 @Html.ActionLink("Editar", "Edit", new { id = item.IdContrato }) |

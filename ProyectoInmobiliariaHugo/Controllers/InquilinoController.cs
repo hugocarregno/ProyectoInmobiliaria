@@ -12,29 +12,15 @@ namespace ProyectoInmobiliariaHugo.Controllers
     public class InquilinoController : Controller
     {
 
-        //private readonly RepositorioInquilino repositorio;
-        //private readonly IConfiguration config;
         private readonly DataContext context;
         Inquilino inquilinoAlta;
-        //public InquilinoController(RepositorioInquilino repositorio, IConfiguration config)
-        //{
-        //    this.repositorio = repositorio;
-        //    this.config = config;
-       // }
+
 
         public InquilinoController(DataContext context)
         {
             this.context = context;
         }
-        //[Authorize]
-        // GET: Inquilino/index
-        //public ActionResult Index()
-       // {
-        //    var inquilinos = repositorio.ObtenerTodos();
-          //  if (TempData.ContainsKey("Id"))
-          //      ViewBag.Id = TempData["Id"];
-          //  return View(inquilinos);
-       // }
+
 
         [Authorize(Policy = "Administrador")]
         // GET: Inquilino/Listado
@@ -59,8 +45,8 @@ namespace ProyectoInmobiliariaHugo.Controllers
         {
             try
             {
-
-                if (inquilino.Dni == 8 && inquilino.Nombre != null && inquilino.Apellido != null && inquilino.Direccion != null && inquilino.Telefono != null && inquilino.Email != null && inquilino.LugarTrabajo != null)
+                
+                if (inquilino.Dni != 0 && inquilino.Nombre != null && inquilino.Apellido != null && inquilino.Direccion != null && inquilino.Telefono != null && inquilino.Email != null && inquilino.LugarTrabajo != null)
                 {
 
                     inquilinoAlta = new Inquilino
@@ -125,7 +111,7 @@ namespace ProyectoInmobiliariaHugo.Controllers
         {
             try
             {
-                if (inquilino.Dni == 8 && inquilino.Nombre != null && inquilino.Apellido != null && inquilino.Direccion != null && inquilino.Telefono != null && inquilino.Email != null && inquilino.LugarTrabajo != null)
+                if (inquilino.Dni != 0 && inquilino.Nombre != null && inquilino.Apellido != null && inquilino.Direccion != null && inquilino.Telefono != null && inquilino.Email != null && inquilino.LugarTrabajo != null)
                 {
 
                     inquilinoAlta = new Inquilino

@@ -4,17 +4,11 @@
     ViewData["Title"] = "Listado";
 }
 
-<h1>Listado</h1>
+<h1>Inquilinos</h1>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
 <table class="table">
     <thead>
         <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.IdInquilino)
-            </th>
             <th>
                 @Html.DisplayNameFor(model => model.Dni)
             </th>
@@ -36,15 +30,12 @@
             <th>
                 @Html.DisplayNameFor(model => model.LugarTrabajo)
             </th>
-            <th></th>
+            <th><a asp-action="Create">Nuevo Inquilino</a></th>
         </tr>
     </thead>
     <tbody>
 @foreach (var item in Model) {
         <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.IdInquilino)
-            </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Dni)
             </td>

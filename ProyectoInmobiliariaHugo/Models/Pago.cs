@@ -16,6 +16,7 @@ namespace ProyectoInmobiliariaHugo.Models
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime FechaPago { get; set; }
         public decimal Importe { get; set; }
+        public String Estado { get; set; }
         public int IdContrato { get; set; }
         public virtual Contrato Contrato { get; set; }
     }

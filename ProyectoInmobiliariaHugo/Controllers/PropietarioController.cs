@@ -42,21 +42,12 @@ namespace ProyectoInmobiliariaHugo.Controllers
             return View(propietario);
         }
 
-        /*
-        // GET: Propietario/Details/5
-        public ActionResult Details(int id)
-        {
-            Propietario propietario = repositorio.ObtenerPorId(id);
-            return View(propietario);
-        }
-        */
+
 
         [Authorize(Policy = "Administrador")]
         // GET: Propietario/Create
         public ActionResult Create()
         {
-            // ViewBag.Ruta = "Propietario";
-            //ViewBag.Query = "Propietario";
             return View();
         }
 
@@ -147,7 +138,6 @@ namespace ProyectoInmobiliariaHugo.Controllers
                         prf: KeyDerivationPrf.HMACSHA1,
                         iterationCount: 1000,
                         numBytesRequested: 256 / 8));
-                    //System.Text.Encoding.ASCII.GetBytes("SALADA")
                 }
                 else
                 {

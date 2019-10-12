@@ -28,27 +28,21 @@ namespace ProyectoInmobiliariaHugo.Controllers
         // GET: Pago/Listado
         public ActionResult Listado()
         {
-            try
-            {
+            
                 var pago = context.Pagos.Include(x => x.Contrato.Inquilino).Include(x => x.Contrato.Inmueble);
                 return View(pago);
-            }
-            catch(Exception e)
-            {
-                return View(e);
-            }
-            
+
         }
 
         [Authorize(Policy = "Administrador")]
         // GET: Pago/ListaPagosPorContrato
         public ActionResult ListaPagosPorContrato(int id)
         {
-            Contrato contrato = context.Contratos.Include(x => x.IdInquilino).First(x => x.IdContrato == id);
+            Contrato contrato = context.Contratos.Include(x => x.Inquilino).First(x => x.IdContrato == id);
 
-            ViewBag.Inquilino = contrato.Inquilino.Nombre + " " + contrato.Inquilino.Apellido;
+            ViewBag.Inquilino = contrato.Inquilino.Apellido + " " + contrato.Inquilino.Nombre;
 
-            var pago = context.Pagos.Include(x => x.Contrato.IdInquilino).Include(x => x.Contrato.IdInmueble).Where(x => x.IdContrato == id);
+            var pago = context.Pagos.Include(x => x.Contrato.Inquilino).Include(x => x.Contrato.Inmueble).Where(x => x.IdContrato == id);
 
 
             return View(pago);
@@ -59,10 +53,10 @@ namespace ProyectoInmobiliariaHugo.Controllers
         {
             Contrato contrato = context.Contratos.Include(x => x.Inquilino).First(x => x.IdContrato == id);
             ViewBag.IdContrato = contrato.IdContrato;
-            ViewBag.InquilinoNombre = contrato.Inquilino.Nombre + " " + contrato.Inquilino.Apellido;
+            ViewBag.InquilinoDescripcion = contrato.Inquilino.Apellido+" "+contrato.Inquilino.Nombre;
             return View();
         }
-        /*
+        
         // POST: Pago/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -72,7 +66,7 @@ namespace ProyectoInmobiliariaHugo.Controllers
             {
                 Contrato contrato = context.Contratos.Include(x => x.Inquilino).First(x => x.IdContrato == pago.IdContrato);
                 ViewBag.IdContrato = contrato.IdContrato;
-                ViewBag.InquilinoNombre = contrato.Inquilino.Nombre + " " + contrato.Inquilino.Apellido;
+                ViewBag.InquilinoDescripcion = contrato.Inquilino.Apellido + " " + contrato.Inquilino.Nombre;
 
 
                 if (pago.FechaPago == null || pago.Importe == 0)
@@ -81,20 +75,20 @@ namespace ProyectoInmobiliariaHugo.Controllers
                     return View();
                 }
                 List<Pago> pagos = context.Pagos.Where(x => x.IdContrato == pago.IdContrato).ToList();
-                int nroPagos = pagos.Count();
+                int cuota = pagos.Count();
 
-                Pago pagocreado = new Pago
+                Pago pagoAlta = new Pago
                 {
                     IdContrato = pago.IdContrato,
-                    NroPago = nroPagos + 1,
+                    Cuota = cuota + 1,
                     Importe = pago.Importe,
                     FechaPago = pago.FechaPago,
                     Estado = pago.Estado
                 };
-                context.Pagos.Add(pagocreado);
+                context.Pagos.Add(pagoAlta);
                 context.SaveChanges();
 
-                return RedirectToAction("ListaPagos");
+                return RedirectToAction("Listado");
             }
             catch (Exception ex)
             {
@@ -102,14 +96,16 @@ namespace ProyectoInmobiliariaHugo.Controllers
                 return View();
             }
         }
+
+        
         [Authorize(Policy = "Administrador")]
         // GET: Pago/Edit/5
         public ActionResult Edit(int id)
         {
-            Pago pago = context.Pagos.Include(x => x.Contrato.Inquilino).First(x => x.Id == id);
-            ViewBag.contratoId = pago.IdContrato;
-            ViewBag.nroPago = pago.NroPago;
-            ViewBag.InquilinoNombre = pago.Contrato.Inquilino.Nombre + " " + pago.Contrato.Inquilino.Apellido;
+            Pago pago = context.Pagos.Include(x => x.Contrato.Inquilino).First(x => x.IdPago == id);
+            ViewBag.IdContrato = pago.IdContrato;
+            ViewBag.Cuota = pago.Cuota;
+            ViewBag.InquilinoDescripcion = pago.Contrato.Inquilino.Apellido + " " + pago.Contrato.Inquilino.Nombre;
             ViewBag.FechaPago = pago.FechaPago.ToString("yyyy-MM-dd");
             return View(pago);
         }
@@ -124,18 +120,18 @@ namespace ProyectoInmobiliariaHugo.Controllers
 
                 if (pago.FechaPago == null || pago.Importe == 0)
                 {
-                    Pago pa = context.Pagos.Include(x => x.Contrato.Inquilino).First(x => x.Id == pago.Id);
-                    ViewBag.contratoId = pago.IdContrato;
-                    ViewBag.InquilinoNombre = pa.Contrato.Inquilino.Nombre + " " + pa.Contrato.Inquilino.Apellido;
+                    Pago pa = context.Pagos.Include(x => x.Contrato.Inquilino).First(x => x.IdPago == pago.IdPago);
+                    ViewBag.IdContrato = pago.IdContrato;
+                    ViewBag.InquilinoDescripcion = pa.Contrato.Inquilino.Apellido + " " + pa.Contrato.Inquilino.Nombre;
                     ViewBag.FechaPago = pago.FechaPago.ToString("yyyy-MM-dd");
-                    ViewBag.error = "ingrese todos los datos";
+                    ViewBag.error = "Campos Incompletos";
                     return View();
                 }
 
                 context.Pagos.Update(pago);
                 context.SaveChanges();
 
-                return RedirectToAction("ListaPagos");
+                return RedirectToAction("Listado");
             }
             catch (Exception ex)
             {
@@ -143,6 +139,6 @@ namespace ProyectoInmobiliariaHugo.Controllers
                 return View();
             }
         }
-        */
+        
     }
 }
