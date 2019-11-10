@@ -19,5 +19,6 @@ namespace ProyectoInmobiliariaHugo.Models
         public string Direccion { get; set; }
         [DataType(DataType.Password)]
         public string Clave { get; set; }
+        public Boolean Estado { get; set; }
     }
 }
